@@ -13,7 +13,7 @@
   ; location of Tor Browser bundle to put into installer
   !define TBBSOURCE ".\Tor Browser\"  
 
-  Name "Tor Browser Bundle"
+  Name "Tor Browser"
   OutFile "torbrowser-install.exe"
 
   ;Default installation folder
