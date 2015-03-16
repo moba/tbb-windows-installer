@@ -35,7 +35,8 @@
 ;--------------------------------
 ;Modern UI settings
   !define MUI_FINISHPAGE_NOREBOOTSUPPORT     ; we don't require a reboot
-  !define MUI_FINISHPAGE_RUN                 "$INSTDIR\Start Tor Browser.exe"
+  !define MUI_FINISHPAGE_RUN
+  !define MUI_FINISHPAGE_RUN_FUNCTION "StartTorBrowser"
 ;--------------------------------
 ;Pages
 
@@ -125,6 +126,8 @@ Section "Tor Browser Bundle" SecTBB
 
   SetOutPath "$INSTDIR"
   File /r "${TBBSOURCE}\*.*"
+  SetOutPath "$INSTDIR\Browser"
+  CreateShortCut "$INSTDIR\Start Tor Browser.lnk" "$INSTDIR\Browser\firefox.exe"
   
 SectionEnd
 
@@ -147,5 +150,9 @@ ${If} ${FileExists} "$INSTDIR\*.*"
  NoAbort:
 ${EndIf}
 FunctionEnd
- 
+
+
+Function StartTorBrowser
+ExecShell "open" "$INSTDIR/Start Tor Browser.lnk"
+FunctionEnd
 
