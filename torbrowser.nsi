@@ -127,10 +127,15 @@ Section "Tor Browser Bundle" SecTBB
   SetOutPath "$INSTDIR"
   File /r "${TBBSOURCE}\*.*"
   SetOutPath "$INSTDIR\Browser"
-  CreateShortCut "$INSTDIR\Start Tor Browser.lnk" "$INSTDIR\Browser\firefox.exe"
+  File "torbrowser.ico"
+  CreateShortCut "$INSTDIR\Start Tor Browser.lnk" "$INSTDIR\Browser\firefox.exe" "" "$INSTDIR\Browser\torbrowser.ico"
   
 SectionEnd
 
+Section "Shortcut on Desktop" SecDesktopShortcut
+
+  
+SectionEnd
 ;--------------------------------
 ;Installer Functions
 
