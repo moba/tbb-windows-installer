@@ -37,6 +37,9 @@
   !define MUI_FINISHPAGE_NOREBOOTSUPPORT     ; we don't require a reboot
   !define MUI_FINISHPAGE_RUN
   !define MUI_FINISHPAGE_RUN_FUNCTION "StartTorBrowser"
+  !define MUI_FINISHPAGE_SHOWREADME ; misuse for option to create shortcut; less ugly than MUI_PAGE_COMPONENTS
+  !define MUI_FINISHPAGE_SHOWREADME_TEXT "Add start menu shortcut"
+  !define MUI_FINISHPAGE_SHOWREADME_FUNCTION "CreateStartMenuShortCut"
 ;--------------------------------
 ;Pages
 
@@ -129,13 +132,14 @@ Section "Tor Browser Bundle" SecTBB
   SetOutPath "$INSTDIR\Browser"
   File "torbrowser.ico"
   CreateShortCut "$INSTDIR\Start Tor Browser.lnk" "$INSTDIR\Browser\firefox.exe" "" "$INSTDIR\Browser\torbrowser.ico"
-  
+
 SectionEnd
 
-Section "Shortcut on Desktop" SecDesktopShortcut
+Function CreateStartMenuShortcut
 
+  CreateShortCut "$SMPROGRAMS\Start Tor Browser.lnk" "$INSTDIR\Browser\firefox.exe" "" "$INSTDIR\Browser\torbrowser.ico" 
   
-SectionEnd
+FunctionEnd
 ;--------------------------------
 ;Installer Functions
 
