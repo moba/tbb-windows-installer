@@ -130,14 +130,13 @@ Section "Tor Browser Bundle" SecTBB
   SetOutPath "$INSTDIR"
   File /r "${TBBSOURCE}\*.*"
   SetOutPath "$INSTDIR\Browser"
-  File "torbrowser.ico"
-  CreateShortCut "$INSTDIR\Start Tor Browser.lnk" "$INSTDIR\Browser\firefox.exe" "" "$INSTDIR\Browser\torbrowser.ico"
+  CreateShortCut "$INSTDIR\Start Tor Browser.lnk" "$INSTDIR\Browser\firefox.exe"
 
 SectionEnd
 
 Function CreateStartMenuShortcut
 
-  CreateShortCut "$SMPROGRAMS\Start Tor Browser.lnk" "$INSTDIR\Browser\firefox.exe" "" "$INSTDIR\Browser\torbrowser.ico" 
+  CreateShortCut "$SMPROGRAMS\Start Tor Browser.lnk" "$INSTDIR\Browser\firefox.exe" 
   
 FunctionEnd
 ;--------------------------------
