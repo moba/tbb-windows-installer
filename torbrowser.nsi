@@ -38,8 +38,8 @@
   !define MUI_FINISHPAGE_RUN
   !define MUI_FINISHPAGE_RUN_FUNCTION "StartTorBrowser"
   !define MUI_FINISHPAGE_SHOWREADME ; misuse for option to create shortcut; less ugly than MUI_PAGE_COMPONENTS
-  !define MUI_FINISHPAGE_SHOWREADME_TEXT "Add start menu shortcut"
-  !define MUI_FINISHPAGE_SHOWREADME_FUNCTION "CreateStartMenuShortCut"
+  !define MUI_FINISHPAGE_SHOWREADME_TEXT "&Add Start Menu && Desktop shortcuts"
+  !define MUI_FINISHPAGE_SHOWREADME_FUNCTION "CreateShortCuts"
 ;--------------------------------
 ;Pages
 
@@ -134,10 +134,11 @@ Section "Tor Browser Bundle" SecTBB
 
 SectionEnd
 
-Function CreateStartMenuShortcut
+Function CreateShortcuts
 
   CreateShortCut "$SMPROGRAMS\Start Tor Browser.lnk" "$INSTDIR\Browser\firefox.exe" 
-  
+  CreateShortCut "$DESKTOP\Start Tor Browser.lnk" "$INSTDIR\Browser\firefox.exe"
+
 FunctionEnd
 ;--------------------------------
 ;Installer Functions
