@@ -6,6 +6,7 @@
 ;Modern" UI
 
   !include "MUI2.nsh"
+  !include "WinVer.nsh"
 
 ;--------------------------------
 ;General
@@ -144,6 +145,12 @@ FunctionEnd
 ;Installer Functions
 
 Function .onInit
+
+  ${IfNot} ${AtLeastWin7}
+    MessageBox MB_USERICON|MB_OK "Tor Browser requires at least Windows 7"
+    SetErrorLevel 1
+    Quit
+  ${EndIf}
 
   !insertmacro MUI_LANGDLL_DISPLAY
 
