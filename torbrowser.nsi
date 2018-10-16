@@ -6,6 +6,7 @@
 ;Modern" UI
 
   !include "MUI2.nsh"
+  !include "LogicLib.nsh"
   !include "WinVer.nsh"
 
 ;--------------------------------
@@ -150,6 +151,16 @@ Function .onInit
     MessageBox MB_USERICON|MB_OK "Tor Browser requires at least Windows 7"
     SetErrorLevel 1
     Quit
+  ${EndIf}
+
+  ; Don't install on systems that don't support SSE2. The parameter value of
+  ; 10 is for PF_XMMI64_INSTRUCTIONS_AVAILABLE which will check whether the
+  ; SSE2 instruction set is available.
+  System::Call "kernel32::IsProcessorFeaturePresent(i 10)i .R7"
+
+  ${If} "$R7" == "0"
+    MessageBox MB_OK|MB_ICONSTOP "Sorry, Tor Browser can't be installed. This version of Tor Browser requires a processor with SSE2 support."
+    Abort
   ${EndIf}
 
   !insertmacro MUI_LANGDLL_DISPLAY
