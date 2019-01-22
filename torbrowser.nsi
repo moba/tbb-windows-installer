@@ -15,11 +15,26 @@
   ; location of Tor Browser bundle to put into installer
   !define TBBSOURCE ".\Tor Browser\"  
 
-  Name "Tor Browser"
+  !if "${CHANNEL}" == "release"
+    !define CHANNEL_NAME ""
+    !define CHANNEL_ICON "torbrowser-release.ico"
+  !endif
+
+  !if "${CHANNEL}" == "nightly"
+    !define CHANNEL_NAME " Nightly"
+    !define CHANNEL_ICON "torbrowser-nightly.ico"
+  !endif
+
+  !if "${CHANNEL}" == "alpha"
+    !define CHANNEL_NAME " Alpha"
+    !define CHANNEL_ICON "torbrowser-alpha.ico"
+  !endif
+
+  Name "Tor Browser${CHANNEL_NAME}"
   OutFile "torbrowser-install.exe"
 
   ;Default installation folder
-  InstallDir "$DESKTOP\Tor Browser"
+  InstallDir "$DESKTOP\Tor Browser${CHANNEL_NAME}"
   
   ;Best (but slowest) compression
   SetCompressor /SOLID lzma
@@ -31,7 +46,7 @@
 ;--------------------------------
 ;Interface Configuration
 
-  !define MUI_ICON   "torbrowser.ico"
+  !define MUI_ICON "${CHANNEL_ICON}"
   !define MUI_ABORTWARNING
 
 ;--------------------------------
@@ -132,14 +147,14 @@ Section "Tor Browser Bundle" SecTBB
   SetOutPath "$INSTDIR"
   File /r "${TBBSOURCE}\*.*"
   SetOutPath "$INSTDIR\Browser"
-  CreateShortCut "$INSTDIR\Start Tor Browser.lnk" "$INSTDIR\Browser\firefox.exe"
+  CreateShortCut "$INSTDIR\Tor Browser${CHANNEL_NAME}.lnk" "$INSTDIR\Browser\firefox.exe"
 
 SectionEnd
 
 Function CreateShortcuts
 
-  CreateShortCut "$SMPROGRAMS\Start Tor Browser.lnk" "$INSTDIR\Browser\firefox.exe" 
-  CreateShortCut "$DESKTOP\Start Tor Browser.lnk" "$INSTDIR\Browser\firefox.exe"
+  CreateShortCut "$SMPROGRAMS\Tor Browser${CHANNEL_NAME}.lnk" "$INSTDIR\Browser\firefox.exe" 
+  CreateShortCut "$DESKTOP\Tor Browser${CHANNEL_NAME}.lnk" "$INSTDIR\Browser\firefox.exe"
 
 FunctionEnd
 ;--------------------------------
@@ -180,6 +195,6 @@ FunctionEnd
 
 
 Function StartTorBrowser
-ExecShell "open" "$INSTDIR/Start Tor Browser.lnk"
+ExecShell "open" "$INSTDIR/Tor Browser${CHANNEL_NAME}.lnk"
 FunctionEnd
 
